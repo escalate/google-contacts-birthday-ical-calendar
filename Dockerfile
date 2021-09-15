@@ -19,7 +19,7 @@ WORKDIR /build
 
 COPY . ./
 
-RUN poetry check \
+RUN make lint-pyproject \
     && make install-python-dependencies \
     && make lint-python \
     && make test-python \

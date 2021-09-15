@@ -22,7 +22,9 @@ jobs:
 
       - name: Run tests
         run: |
-          poetry check
+          make lint-editorconfig
+          make lint-dockerfile
+          make lint-pyproject
           make install-python-dependencies
           make lint-python
           make test-python
