@@ -15,10 +15,21 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name: Install hadolint
+        run: |
+          gh release download --pattern "*Linux-x86_64" --dir /usr/local/bin
+          chmod +x /usr/local/bin/hadolint-Linux-x86_64
+          ln --symbolic /usr/local/bin/hadolint-Linux-x86_64 /usr/local/bin/hadolint
+          ls -alih /usr/local/bin
+        env:
+          GH_REPO: hadolint/hadolint
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
       - name: Install test dependencies
         run: |
-          python -m pip install --disable-pip-version-check editorconfig-checker
-          python -m pip install --disable-pip-version-check "poetry>=1.0.0,<=2.0.0"
+          python -m pip install "editorconfig-checker" "poetry>=1.0.0,<=2.0.0"
+        env:
+          PIP_DISABLE_PIP_VERSION_CHECK: 1
 
       - name: Run tests
         run: |
