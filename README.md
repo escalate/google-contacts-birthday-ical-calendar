@@ -1,3 +1,5 @@
+[![Test](https://github.com/escalate/google-contacts-birthday-ical-calendar/actions/workflows/test.yml/badge.svg?branch=master&event=push)](https://github.com/escalate/google-contacts-birthday-ical-calendar/actions/workflows/test.yml)
+
 # Google Contacts birthday to iCal calendar converter
 
 This commandline tool converts birthday events of an CSV export of [Google Contacts](https://contacts.google.com/) via [Google Takeout](https://takeout.google.com/) into a iCal calendar file.
