@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "google-contacts-birthday-ical-calendar"
+version = "0.1.0"
+description = "Google Contacts birthday to iCal calendar converter"
+authors = ["Felix Boerner <ich@felix-boerner.de>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+icalendar = "^4.0.7"
+click = "^8.0.1"
+loguru = "^0.5.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^2.12.1"
+pep8 = "^1.7.1"
+autopep8 = "^1.5.7"
+flake8 = "^3.9.2"
+isort = "^5.9.3"
+pyclean = "^2.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
