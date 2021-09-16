@@ -52,7 +52,7 @@ $ docker run \
     --verbose
 ```
 
-## Other Projects
+## Other projects
 
 * Google Apps Script which sends emails for birthdays of Google contacts [GoogleContactsEventsNotifier](https://github.com/GioBonvi/GoogleContactsEventsNotifier)
 
