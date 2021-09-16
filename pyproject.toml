@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "google-contacts-birthday-ical-calendar"
-version = "0.1.0"
+version = "0.0.0"
 description = "Google Contacts birthday to iCal calendar converter"
 authors = ["Felix Boerner <ich@felix-boerner.de>"]
 license = "MIT"
