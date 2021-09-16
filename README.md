@@ -56,6 +56,10 @@ $ docker run \
 
 * Google Apps Script which sends emails for birthdays of Google contacts [GoogleContactsEventsNotifier](https://github.com/GioBonvi/GoogleContactsEventsNotifier)
 
+## Contribute
+
+Please note the separate [contributing guide](https://github.com/escalate/google-contacts-birthday-ical-calendar/blob/master/CONTRIBUTING.md).
+
 ## License
 
 MIT
