@@ -48,7 +48,7 @@ $ docker run \
     --volume=$(pwd):/data:rw \
     googlecontactsbirthdayicalcalendar:latest \
     example.csv \
-    examle.ics \
+    example.ics \
     --verbose
 ```
 
