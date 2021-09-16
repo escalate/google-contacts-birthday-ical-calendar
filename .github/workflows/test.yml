@@ -40,10 +40,10 @@ jobs:
         run: |
           make lint-editorconfig
           make lint-dockerfile
-          make lint-pyproject
 
       - name: Install test dependencies
         run: |
+          make lint-pyproject
           make install-python-dependencies
 
       - name: Run tests
