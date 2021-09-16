@@ -25,17 +25,29 @@ jobs:
           GH_REPO: hadolint/hadolint
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Install test dependencies
+      - name: Install editorconfig-checker
         run: |
-          python -m pip install "editorconfig-checker" "poetry>=1.0.0,<=2.0.0"
+          python -m pip install "editorconfig-checker"
         env:
           PIP_DISABLE_PIP_VERSION_CHECK: 1
 
-      - name: Run tests
+      - name: Install poetry
+        run: |
+          python -m pip install "poetry>=1.0.0,<=2.0.0"
+        env:
+          PIP_DISABLE_PIP_VERSION_CHECK: 1
+
+      - name: Run linters
         run: |
           make lint-editorconfig
           make lint-dockerfile
           make lint-pyproject
+
+      - name: Install test dependencies
+        run: |
           make install-python-dependencies
+
+      - name: Run tests
+        run: |
           make lint-python
           make test-python
