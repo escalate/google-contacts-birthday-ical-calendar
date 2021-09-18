@@ -15,6 +15,10 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name: Install editorconfig-checker
+        run: |
+          python -m pip install --no-python-version-warning "editorconfig-checker"
+
       - name: Install hadolint
         run: |
           gh release download --pattern "*Linux-x86_64" --dir /usr/local/bin
@@ -24,17 +28,9 @@ jobs:
           GH_REPO: hadolint/hadolint
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Install editorconfig-checker
-        run: |
-          python -m pip install "editorconfig-checker"
-        env:
-          PIP_DISABLE_PIP_VERSION_CHECK: 1
-
       - name: Install poetry
         run: |
-          python -m pip install "poetry>=1.0.0,<=2.0.0"
-        env:
-          PIP_DISABLE_PIP_VERSION_CHECK: 1
+          python -m pip install --no-python-version-warning "poetry>=1.0.0,<=2.0.0"
 
       - name: Run linters
         run: |
