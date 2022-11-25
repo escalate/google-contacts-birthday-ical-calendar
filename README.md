@@ -18,12 +18,17 @@ $ make install-dependencies
 
 Run tool from commandline
 ```
+$ cd google_contacts_birthday_ical_calendar/
+$ poetry shell
 $ ./converter.py --help
 
 Usage: converter.py [OPTIONS] CSVFILE ICALFILE
 
     Commandline interface for Google Contacts birthday to iCal calendar
     converter
+
+    CSVFILE is the input .csv filepath.
+    ICALFILE is the output .ics filepath.
 
 Options:
     --verbose  Enable verbose logging output.
