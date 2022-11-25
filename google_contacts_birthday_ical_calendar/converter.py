@@ -66,20 +66,25 @@ def convert_csv_to_ical(csv_file):
 )
 def cli(csvfile, icalfile, verbose):
     """Commandline interface for Google Contacts birthday
-    to iCal calendar converter"""
+    to iCal calendar converter
+
+    \b
+    CSVFILE is the input .csv filepath.
+    ICALFILE is the output .ics filepath.
+    """
 
     logger.disable(__name__)
 
     if verbose:
         logger.enable(__name__)
 
-    logger.debug("CSV file: {csvfile}", csvfile=csvfile.name)
+    logger.info("CSV file: {csvfile}", csvfile=csvfile.name)
 
     cal = convert_csv_to_ical(csvfile)
 
     icalfile.write(cal)
 
-    logger.debug("iCal file: {icalfile}", icalfile=icalfile.name)
+    logger.info("iCal file: {icalfile}", icalfile=icalfile.name)
 
 
 if __name__ == "__main__":
