@@ -1,55 +1,45 @@
-ARG PYTHON_VERSION=3
+#### build
+ARG PYTHON_VERSION="3"
 FROM python:${PYTHON_VERSION}-slim as build
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+WORKDIR /build
 
-ENV PYTHONFAULTHANDLER=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+ARG POETRY_VERSION="1.2.2"
+ENV POETRY_VIRTUALENVS_PATH=".venv" \
+    POETRY_VIRTUALENVS_IN_PROJECT="true"
 
-RUN pip install "poetry>=1.0.0,<=2.0.0" \
+RUN pip install --no-cache-dir --disable-pip-version-check "poetry==${POETRY_VERSION}" \
     && apt-get update \
     && apt-get install --no-install-recommends --yes make=* \
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/*
 
-WORKDIR /build
-
 COPY . ./
 
 RUN make lint-pyproject \
-    && make install-python-dependencies \
+    && make install-python-dependencies
+
+#### test
+FROM build as test
+RUN make install-python-dev-dependencies \
     && make lint-python \
-    && make test-python \
-    && make clean-python \
-    && poetry config virtualenvs.in-project true \
-    && poetry config virtualenvs.path .venv \
-    && poetry install --no-interaction --no-root --no-dev
+    && make test-python
 
-
-FROM python:${PYTHON_VERSION}-slim as run
+#### release
+FROM python:${PYTHON_VERSION}-slim as release
 
 LABEL maintainer="Felix Boerner <ich@felix-boerner.de>"
 
 ENV PYTHONFAULTHANDLER=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
+    PYTHONUNBUFFERED=1
 
 WORKDIR /app
-
-COPY --from=build /build/google_contacts_birthday_ical_calendar/ ./
-COPY --from=build /build/.venv/ ./.venv/
-
-ENV PATH="/app/.venv/bin:${PATH}"
-
-RUN useradd appuser \
-    && chown --recursive appuser /app
-USER appuser
+RUN useradd appuser
+COPY --from=build --chown=appuser:appuser /build/google_contacts_birthday_ical_calendar/ ./
+COPY --from=build --chown=appuser:appuser /build/.venv/ ./.venv/
 
 WORKDIR /data
-
+USER appuser
+ENV PATH="/app/.venv/bin:${PATH}"
 ENTRYPOINT ["/app/converter.py"]
-
 CMD ["--help"]

@@ -46,7 +46,7 @@ Run Docker container from built image with additional arguments
 ```
 $ docker run \
     --volume=$(pwd):/data:rw \
-    googlecontactsbirthdayicalcalendar:latest \
+    google_contacts_birthday_ical_calendar:latest \
     example.csv \
     example.ics \
     --verbose

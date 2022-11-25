@@ -1,16 +1,13 @@
 SHELL = /bin/bash -eo pipefail
+PROJECT = google_contacts_birthday_ical_calendar
 
 .PHONY: install-python-dependencies
 install-python-dependencies:
-	poetry install --no-interaction
+	poetry install --no-interaction --no-root --without dev
 
-.PHONY: update-python-dependencies
-update-python-dependencies:
-	poetry update
-
-.PHONY: lock-python-dependencies
-lock-python-dependencies:
-	poetry lock
+.PHONY: install-python-dev-dependencies
+install-python-dev-dependencies:
+	poetry install --no-interaction --no-root --only dev
 
 .PHONY: lint-editorconfig
 lint-editorconfig:
@@ -26,7 +23,7 @@ lint-pyproject:
 
 .PHONY: lint-python
 lint-python:
-	poetry run flake8
+	poetry run flake8 $(PROJECT)/
 
 .PHONY: clean-python
 clean-python:
@@ -34,14 +31,14 @@ clean-python:
 
 .PHONY: test-python
 test-python:
-	poetry run pytest --cov=google_contacts_birthday_ical_calendar/
+	poetry run pytest --cov=$(PROJECT)/
 
 .PHONY: build-docker-image
 build-docker-image:
 	docker build \
 	--pull \
 	--rm \
-	--tag googlecontactsbirthdayicalcalendar:latest \
+	--tag $(PROJECT):latest \
 	.
 
 .PHONY: versions
