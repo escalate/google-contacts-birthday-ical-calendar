@@ -36,9 +36,3 @@ test-python:
 .PHONY: build-docker-image
 build-docker-image:
 	docker-compose --file docker-compose.yml build
-
-.PHONY: versions
-versions:
-	python --version
-	pip --version
-	poetry --version
