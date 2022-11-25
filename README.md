@@ -44,7 +44,7 @@ $ make build-docker-image
 
 Run Docker container from built image to print help
 ```
-$ docker run googlecontactsbirthdayicalcalendar:latest
+$ docker run google_contacts_birthday_ical_calendar:latest
 ```
 
 Run Docker container from built image with additional arguments
