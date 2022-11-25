@@ -35,11 +35,7 @@ test-python:
 
 .PHONY: build-docker-image
 build-docker-image:
-	docker build \
-	--pull \
-	--rm \
-	--tag $(PROJECT):latest \
-	.
+	docker-compose --file docker-compose.yml build
 
 .PHONY: versions
 versions:

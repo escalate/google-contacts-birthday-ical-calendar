@@ -28,21 +28,11 @@ jobs:
           GH_REPO: hadolint/hadolint
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Install poetry
-        run: |
-          python -m pip install --no-python-version-warning "poetry>=1.0.0,<=2.0.0"
-
       - name: Run linters
         run: |
           make lint-editorconfig
           make lint-dockerfile
 
-      - name: Install test dependencies
-        run: |
-          make lint-pyproject
-          make install-python-dependencies
-
       - name: Run tests
         run: |
-          make lint-python
-          make test-python
+          docker-compose -f docker-compose.test.yml build
