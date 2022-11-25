@@ -21,6 +21,7 @@ RUN make lint-pyproject \
 
 #### test
 FROM build as test
+
 RUN make install-python-dev-dependencies \
     && make lint-python \
     && make test-python
