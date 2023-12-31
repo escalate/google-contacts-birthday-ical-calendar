@@ -18,7 +18,7 @@ pep8 = "^1.7.1"
 autopep8 = "^2.0.4"
 flake8 = "^6.0.0"
 isort = "^5.10.1"
-pyclean = "^2.2.0"
+pyclean = "^2.7.6"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
