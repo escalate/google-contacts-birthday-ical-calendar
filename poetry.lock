@@ -154,13 +154,13 @@ pyflakes = ">=3.0.0,<3.1.0"
 
 [[package]]
 name = "icalendar"
-version = "5.0.3"
+version = "5.0.11"
 description = "iCalendar parser/generator"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "icalendar-5.0.3-py3-none-any.whl", hash = "sha256:1cdcd27307e55db25bd7f99924b7a31c6b2d123228e7dae6723974a4a1d60258"},
-    {file = "icalendar-5.0.3.tar.gz", hash = "sha256:ca60810598681cb239fc3190202e01a3305e4f0389576273892dda31249f25e4"},
+    {file = "icalendar-5.0.11-py3-none-any.whl", hash = "sha256:81864971ac43a1b7d0a555dc1b667836ce59fc719a7f845a96f2f03205fb83b9"},
+    {file = "icalendar-5.0.11.tar.gz", hash = "sha256:7a298bb864526589d0de81f4b736eeb6ff9e539fefb405f7977aa5c1e201ca00"},
 ]
 
 [package.dependencies]
@@ -416,4 +416,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "cad7eca189e8dd2ddee8846db726f426c47ac21d9b6a6fc0ac999c060be9b2a4"
+content-hash = "9918f538b111c26dcb01735da02f5eddd79e00a2ffc41e10d8d9a431cd5e3c7d"
