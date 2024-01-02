@@ -92,7 +92,7 @@ jobs:
         id: check_yaml
         uses: andstor/file-existence-action@v2
         with:
-          files: "**/*.{yaml,yml}"
+          files: "**/*.yml"
 
       - name: Install latest yamllint version
         if: steps.check_yaml.outputs.files_exists == 'true'
