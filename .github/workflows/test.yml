@@ -12,7 +12,7 @@ jobs:
 
       - name: Run editorconfig-checker
         uses: editorconfig-checker/action-editorconfig-checker@v2
-        run: ec
+      - run: ec
 
       - name: Run hadolint
         uses: hadolint/hadolint-action@v3.1.0
