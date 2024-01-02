@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import csv
-from datetime import datetime, timedelta, date
+from datetime import date, datetime, timedelta
 
 import click
 from icalendar import Calendar, Event
