@@ -17,7 +17,7 @@ pytest-cov = "^4.1.0"
 pep8 = "^1.7.1"
 autopep8 = "^2.0.4"
 flake8 = "^6.0.0"
-isort = "^5.10.1"
+isort = "^5.13.2"
 pyclean = "^2.7.6"
 
 [build-system]
