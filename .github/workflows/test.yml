@@ -3,26 +3,154 @@ name: Test
   - push
   - pull_request
 jobs:
-  test:
-    name: Test
+  editorconfig:
+    name: Editorconfig
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Install latest editorconfig-checker version
+        run: |
+          gh release download --pattern "*linux-amd64.tar.gz" --dir /tmp
+          tar --extract --gzip --strip-components 1 --file /tmp/ec-linux-amd64.tar.gz --directory /tmp
+          chmod +x /tmp/ec-linux-amd64
+          mv /tmp/ec-linux-amd64 /usr/local/bin/ec
+        env:
+          GH_REPO: editorconfig-checker/editorconfig-checker
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
       - name: Run editorconfig-checker
-        uses: editorconfig-checker/action-editorconfig-checker@v2
-      - run: ec
+        run: |
+          ec
+
+  dockerfile:
+    name: Dockerfile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check for Dockerfile files
+        id: check_dockerfile
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "Dockerfile*"
+
+      - name: Install latest hadolint version
+        if: steps.check_dockerfile.outputs.files_exists == 'true'
+        run: |
+          gh release download --pattern "*Linux-x86_64" --dir /tmp
+          chmod +x /tmp/hadolint-Linux-x86_64
+          mv /tmp/hadolint-Linux-x86_64 /usr/local/bin/hadolint
+        env:
+          GH_REPO: hadolint/hadolint
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Run hadolint
-        uses: hadolint/hadolint-action@v3.1.0
+        if: steps.check_dockerfile.outputs.files_exists == 'true'
+        run: |
+          find . -name "Dockerfile*" -not -name "Dockerfile.j2" -print0 | xargs -0 -I{} hadolint "{}"
+
+  shell:
+    name: Shell
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check for Shell files
+        id: check_shell
+        uses: andstor/file-existence-action@v2
         with:
-          dockerfile: Dockerfile
+          files: "*.sh"
+
+      - name: Install latest shellcheck version
+        if: steps.check_shell.outputs.files_exists == 'true'
+        run: |
+          gh release download --pattern "*linux.x86_64.tar.xz" --dir /tmp
+          tar --extract --xz --strip-components 1 --file /tmp/shellcheck-*.linux.x86_64.tar.xz --directory /tmp
+          chmod +x /tmp/shellcheck
+          mv /tmp/shellcheck /usr/local/bin/shellcheck
+        env:
+          GH_REPO: koalaman/shellcheck
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Run shellcheck
+        if: steps.check_shell.outputs.files_exists == 'true'
+        run: |
+          find . -name "*.sh" -print0 | xargs -0 -I{} shellcheck --external-sources "{}"
+
+  yaml:
+    name: YAML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check for YAML files
+        id: check_yaml
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "*.yaml, *.yml"
+
+      - name: Install latest yamllint version
+        if: steps.check_yaml.outputs.files_exists == 'true'
+        run: |
+          pip3 install --disable-pip-version-check yamllint
 
       - name: Run yamllint
+        if: steps.check_yaml.outputs.files_exists == 'true'
         run: |
-          yamllint --strict --config-file .yamllint .
+          yamllint --strict .
 
-      - name: Run tests
+  python:
+    name: Python
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check for Python files
+        id: check_python
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "*.py"
+
+      - name: Install latest flake8 version
+        if: steps.check_python.outputs.files_exists == 'true'
+        run: |
+          pip3 install --disable-pip-version-check flake8
+
+      - name: Run flake8
+        if: steps.check_python.outputs.files_exists == 'true'
+        run: |
+          flake8 --show-source .
+
+      - name: Install latest isort version
+        if: steps.check_python.outputs.files_exists == 'true'
+        run: |
+          pip3 install --disable-pip-version-check isort[colors]
+
+      - name: Run flake8
+        if: steps.check_python.outputs.files_exists == 'true'
+        run: |
+          isort . --check-only --diff --color
+
+  test:
+    name: Docker-Compose Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check for Docker-Compose test file
+        id: check_docker_compose_test
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "docker-compose.test.yml"
+
+      - name: Run docker-compose tests
+        if: steps.check_docker_compose_test.outputs.files_exists == 'true'
         run: |
           docker-compose -f docker-compose.test.yml build
