@@ -132,7 +132,7 @@ jobs:
         run: |
           pip3 install --disable-pip-version-check isort[colors]
 
-      - name: Run flake8
+      - name: Run isort
         if: steps.check_python.outputs.files_exists == 'true'
         run: |
           isort . --check-only --diff --color
