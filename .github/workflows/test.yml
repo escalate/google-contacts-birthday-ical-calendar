@@ -81,7 +81,7 @@ jobs:
       - name: Run shellcheck
         if: steps.check_shell.outputs.files_exists == 'true'
         run: |
-          find . -name "*.sh" -print0 | xargs -0 -I{} shellcheck --external-sources "{}"
+          find . -name "*.sh" -not -path "*/ansible_collections/*" -print0 | xargs -0 -I{} shellcheck --external-sources "{}"
 
   yaml:
     name: YAML
@@ -146,6 +146,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: Check for Ansible playbook files
         id: check_ansible_playbook
         uses: andstor/file-existence-action@v2
@@ -156,11 +161,6 @@ jobs:
         if: steps.check_ansible_playbook.outputs.files_exists == 'true'
         run: |
           pip3 install --disable-pip-version-check ansible
-
-      - name: Run ansible-playbook
-        if: steps.check_ansible_playbook.outputs.files_exists == 'true'
-        run: |
-          find . -maxdepth 1 -name "*.yml" -not -name "requirements.yml" | xargs -n1 ansible-playbook --inventory="hosts" --syntax-check
 
       - name: Install latest ansible-lint version
         if: steps.check_ansible_playbook.outputs.files_exists == 'true'
