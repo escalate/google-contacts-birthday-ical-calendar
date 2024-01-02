@@ -35,7 +35,7 @@ jobs:
         id: check_dockerfile
         uses: andstor/file-existence-action@v2
         with:
-          files: "Dockerfile*"
+          files: "**/Dockerfile*"
 
       - name: Install latest hadolint version
         if: steps.check_dockerfile.outputs.files_exists == 'true'
@@ -63,7 +63,7 @@ jobs:
         id: check_shell
         uses: andstor/file-existence-action@v2
         with:
-          files: "*.sh"
+          files: "**/*.sh"
 
       - name: Install latest shellcheck version
         if: steps.check_shell.outputs.files_exists == 'true'
@@ -92,7 +92,7 @@ jobs:
         id: check_yaml
         uses: andstor/file-existence-action@v2
         with:
-          files: "*.yaml, *.yml"
+          files: "**/*.yaml, **/*.yml"
 
       - name: Install latest yamllint version
         if: steps.check_yaml.outputs.files_exists == 'true'
@@ -115,7 +115,7 @@ jobs:
         id: check_python
         uses: andstor/file-existence-action@v2
         with:
-          files: "*.py"
+          files: "**/*.py"
 
       - name: Install latest flake8 version
         if: steps.check_python.outputs.files_exists == 'true'
