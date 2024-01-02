@@ -12,10 +12,10 @@ jobs:
 
       - name: Install editorconfig-checker
         run: |
-          gh release download --pattern "*linux-amd64.tar.gz" --dir /usr/local
-          tar xzf /usr/local/ec-linux-amd64.tar.gz
-          chmod +x /usr/local/bin/ec-linux-amd64
-          ln --symbolic /usr/local/bin/ec-linux-amd64 /usr/local/bin/ec
+          gh release download --pattern "*linux-amd64.tar.gz" --dir /tmp
+          tar xvzf /tmp/ec-linux-amd64.tar.gz
+          chmod +x /tmp/bin/ec-linux-amd64
+          mv /tmp/bin/ec-linux-amd64 /usr/local/bin/ec
         env:
           GH_REPO: editorconfig-checker/editorconfig-checker
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
