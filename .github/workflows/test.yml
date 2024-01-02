@@ -13,7 +13,7 @@ jobs:
       - name: Install editorconfig-checker
         run: |
           gh release download --pattern "*linux-amd64.tar.gz" --dir /tmp
-          tar xvzf /tmp/ec-linux-amd64.tar.gz
+          tar xvzf /tmp/ec-linux-amd64.tar.gz -C /tmp
           chmod +x /tmp/bin/ec-linux-amd64
           mv /tmp/bin/ec-linux-amd64 /usr/local/bin/ec
         env:
