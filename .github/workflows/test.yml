@@ -139,6 +139,39 @@ jobs:
         run: |
           isort . --check-only --diff --color
 
+  ansible:
+    name: Ansible
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check for Ansible playbook files
+        id: check_ansible_playbook
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "hosts, site.yml, requirements.yml"
+
+      - name: Install latest ansible version
+        if: steps.check_ansible_playbook.outputs.files_exists == 'true'
+        run: |
+          pip3 install --disable-pip-version-check ansible
+
+      - name: Run ansible-playbook
+        if: steps.check_ansible_playbook.outputs.files_exists == 'true'
+        run: |
+          find . -maxdepth 1 -name "*.yml" -not -name "requirements.yml" | xargs -n1 ansible-playbook --inventory="hosts" --syntax-check
+
+      - name: Install latest ansible-lint version
+        if: steps.check_ansible_playbook.outputs.files_exists == 'true'
+        run: |
+          pip3 install --disable-pip-version-check ansible-lint
+
+      - name: Run ansible-lint
+        if: steps.check_ansible_playbook.outputs.files_exists == 'true'
+        run: |
+          find . -maxdepth 1 -name "*.yml" -not -name "requirements.yml" | xargs -n1 ansible-lint --force-color
+
   test:
     name: Docker-Compose Test
     runs-on: ubuntu-latest
