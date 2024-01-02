@@ -10,29 +10,18 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Install editorconfig-checker
-        run: |
-          gh release download --pattern "*linux-amd64.tar.gz" --dir /tmp
-          tar xvzf /tmp/ec-linux-amd64.tar.gz -C /tmp
-          chmod +x /tmp/bin/ec-linux-amd64
-          mv /tmp/bin/ec-linux-amd64 /usr/local/bin/ec
-        env:
-          GH_REPO: editorconfig-checker/editorconfig-checker
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Run editorconfig-checker
+        uses: editorconfig-checker/action-editorconfig-checker@v2
+        run: ec
 
-      - name: Install hadolint
-        run: |
-          gh release download --pattern "*Linux-x86_64" --dir /usr/local/bin
-          chmod +x /usr/local/bin/hadolint-Linux-x86_64
-          ln --symbolic /usr/local/bin/hadolint-Linux-x86_64 /usr/local/bin/hadolint
-        env:
-          GH_REPO: hadolint/hadolint
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Run hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
 
-      - name: Run linters
+      - name: Run yamllint
         run: |
-          make lint-editorconfig
-          make lint-dockerfile
+          yamllint --strict --config-file .yamllint .
 
       - name: Run tests
         run: |
