@@ -150,7 +150,7 @@ jobs:
         with:
           files: "docker-compose.test.yml"
 
-      - name: Run docker-compose tests
+      - name: Run docker-compose test
         if: steps.check_docker_compose_test.outputs.files_exists == 'true'
         run: |
           docker-compose -f docker-compose.test.yml build
