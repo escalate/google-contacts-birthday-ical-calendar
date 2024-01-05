@@ -1,4 +1,4 @@
-name: Test
+name: Tests
 'on':
   push:
     branches:
@@ -52,7 +52,7 @@ jobs:
       - name: Run hadolint
         if: steps.check_dockerfile.outputs.files_exists == 'true'
         run: |
-          find . -name "Dockerfile*" -not -name "Dockerfile.j2" -print0 | xargs -0 -I{} hadolint "{}"
+          find . -name "Dockerfile*" -not -name "Dockerfile.j2" -not -path "*/ansible_collections/*" -print0 | xargs -0 -I{} hadolint "{}"
 
   shell:
     name: Shell
@@ -152,28 +152,66 @@ jobs:
           python-version: '3.x'
 
       - name: Check for Ansible playbook files
-        id: check_ansible_playbook
+        id: check_ansible
         uses: andstor/file-existence-action@v2
         with:
-          files: "hosts, site.yml, requirements.yml"
+          files: "tasks, meta"
 
       - name: Install latest ansible version
-        if: steps.check_ansible_playbook.outputs.files_exists == 'true'
+        if: steps.check_ansible.outputs.files_exists == 'true'
         run: |
           pip3 install --disable-pip-version-check ansible
 
       - name: Install latest ansible-lint version
-        if: steps.check_ansible_playbook.outputs.files_exists == 'true'
+        if: steps.check_ansible.outputs.files_exists == 'true'
         run: |
           pip3 install --disable-pip-version-check ansible-lint
 
-      - name: Run ansible-lint
-        if: steps.check_ansible_playbook.outputs.files_exists == 'true'
+      - name: Install latest molecule version
+        if: steps.check_ansible.outputs.files_exists == 'true'
         run: |
-          find . -maxdepth 1 -name "*.yml" -not -name "requirements.yml" | xargs -n1 ansible-lint --force-color
+          pip3 install --disable-pip-version-check molecule molecule-plugins[docker] pytest-testinfra
 
-  test:
-    name: Docker-Compose Test
+      - name: Run ansible-lint
+        if: steps.check_ansible.outputs.files_exists == 'true'
+        run: |
+          ansible-lint --force-color .
+
+      - name: Run molecule
+        if: steps.check_ansible.outputs.files_exists == 'true'
+        run: |
+          molecule test --all
+
+  tox:
+    name: Tox
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check for Tox file
+        id: check_tox
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "tox.ini"
+
+      - name: Install test dependencies
+        if: steps.check_tox.outputs.files_exists == 'true'
+        run: |
+          make dev-requirements
+
+      - name: Run tox
+        if: steps.check_tox.outputs.files_exists == 'true'
+        run: |
+          tox
+
+  docker-compose:
+    name: Docker-Compose
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
