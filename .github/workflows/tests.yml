@@ -146,16 +146,17 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.x
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Check for Ansible playbook files
+      - name: Check for Ansible files
         id: check_ansible
         uses: andstor/file-existence-action@v2
         with:
           files: "tasks, meta"
+
+      - name: Set up Python 3.x
+        if: steps.check_ansible.outputs.files_exists == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
       - name: Install latest ansible version
         if: steps.check_ansible.outputs.files_exists == 'true'
@@ -167,18 +168,47 @@ jobs:
         run: |
           pip3 install --disable-pip-version-check ansible-lint
 
-      - name: Install latest molecule version
-        if: steps.check_ansible.outputs.files_exists == 'true'
-        run: |
-          pip3 install --disable-pip-version-check molecule molecule-plugins[docker] pytest-testinfra
-
       - name: Run ansible-lint
         if: steps.check_ansible.outputs.files_exists == 'true'
         run: |
           ansible-lint --force-color .
 
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check for Molecule files
+        id: check_molecule
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "molecule"
+
+      - name: Set up Python 3.x
+        if: steps.check_molecule.outputs.files_exists == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install latest ansible version
+        if: steps.check_molecule.outputs.files_exists == 'true'
+        run: |
+          pip3 install --disable-pip-version-check ansible
+
+      - name: Install latest ansible-lint version
+        if: steps.check_molecule.outputs.files_exists == 'true'
+        run: |
+          pip3 install --disable-pip-version-check ansible-lint
+
+      - name: Install latest molecule version
+        if: steps.check_molecule.outputs.files_exists == 'true'
+        run: |
+          pip3 install --disable-pip-version-check molecule molecule-plugins[docker] pytest-testinfra
+
       - name: Run molecule
-        if: steps.check_ansible.outputs.files_exists == 'true'
+        if: steps.check_molecule.outputs.files_exists == 'true'
         run: |
           molecule test --all
 
@@ -189,16 +219,22 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
       - name: Check for Tox file
         id: check_tox
         uses: andstor/file-existence-action@v2
         with:
           files: "tox.ini"
+
+      - name: Set up Python 3.x
+        if: steps.check_tox.outputs.files_exists == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install latest tox version
+        if: steps.check_tox.outputs.files_exists == 'true'
+        run: |
+          pip3 install --disable-pip-version-check tox
 
       - name: Install test dependencies
         if: steps.check_tox.outputs.files_exists == 'true'
@@ -226,4 +262,4 @@ jobs:
       - name: Run docker-compose test
         if: steps.check_docker_compose_test.outputs.files_exists == 'true'
         run: |
-          docker-compose -f docker-compose.test.yml build
+          docker compose --file docker-compose.test.yml build
