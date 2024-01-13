@@ -1,0 +1,10 @@
+name: Test
+'on':
+  push:
+    branches:
+      - master
+  pull_request:
+jobs:
+  test:
+    name: Test
+    uses: escalate/github-actions-workflows/.github/workflows/test.yml@master
