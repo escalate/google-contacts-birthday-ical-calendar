@@ -1,4 +1,4 @@
-[![Tests](https://github.com/escalate/google-contacts-birthday-ical-calendar/actions/workflows/tests.yml/badge.svg?branch=master&event=push)](https://github.com/escalate/google-contacts-birthday-ical-calendar/actions/workflows/tests.yml)
+[![Test](https://github.com/escalate/google-contacts-birthday-ical-calendar/actions/workflows/test.yml/badge.svg?branch=master&event=push)](https://github.com/escalate/google-contacts-birthday-ical-calendar/actions/workflows/test.yml)
 
 # Google Contacts birthday to iCal calendar converter
 
