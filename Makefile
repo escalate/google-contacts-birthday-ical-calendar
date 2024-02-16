@@ -1,4 +1,5 @@
-SHELL = /bin/bash -eo pipefail
+SHELL = /bin/bash
+.SHELLFLAGS = -e -o pipefail -c
 PROJECT = google_contacts_birthday_ical_calendar
 
 .PHONY: install-python-dependencies
