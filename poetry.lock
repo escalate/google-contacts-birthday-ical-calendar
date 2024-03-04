@@ -246,13 +246,13 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pyclean"
-version = "2.7.6"
+version = "3.0.0"
 description = "Pure Python cross-platform pyclean. Clean up your Python bytecode."
 optional = false
-python-versions = "*"
+python-versions = ">=3.5"
 files = [
-    {file = "pyclean-2.7.6-py3-none-any.whl", hash = "sha256:db5f74f6d2fedb79366e3260b260f5ab0053e1df28af14fc2c860800bf00fe96"},
-    {file = "pyclean-2.7.6.tar.gz", hash = "sha256:cde95ad4fbc194e970fd7ad009e82718f6c1d1309b195be9018d334d79661cca"},
+    {file = "pyclean-3.0.0-py3-none-any.whl", hash = "sha256:a1d8114991cf09994bc511cd0b050f3e398ae2bc8bfc0bbd1bdbec8ba048e6dd"},
+    {file = "pyclean-3.0.0.tar.gz", hash = "sha256:a48be7afd512b1923a7b9decc1219bbbe2d73199c939b46c936448f904a180ce"},
 ]
 
 [[package]]
@@ -395,4 +395,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "e94988751bafdd5dd5b4b06bd5b33161444478a55923d3574cc8412a34865a76"
+content-hash = "4ba3a8d4ec7e00cb3a321055862ecc6c84d3e03bc6572be751011695e94ff42b"
