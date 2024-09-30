@@ -137,18 +137,21 @@ pyflakes = ">=3.2.0,<3.3.0"
 
 [[package]]
 name = "icalendar"
-version = "5.0.13"
+version = "6.0.0"
 description = "iCalendar parser/generator"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "icalendar-5.0.13-py3-none-any.whl", hash = "sha256:5ded5415e2e1edef5ab230024a75878a7a81d518a3b1ae4f34bf20b173c84dc2"},
-    {file = "icalendar-5.0.13.tar.gz", hash = "sha256:92799fde8cce0b61daa8383593836d1e19136e504fa1671f471f98be9b029706"},
+    {file = "icalendar-6.0.0-py3-none-any.whl", hash = "sha256:567e718551d800362db04ca09777295336e1803f6fc6bc0a7a5e258917fa8ed0"},
+    {file = "icalendar-6.0.0.tar.gz", hash = "sha256:7ddf60d343f3c1f716de9b62f6e80ffd95d03cab62464894a0539feab7b5c76e"},
 ]
 
 [package.dependencies]
 python-dateutil = "*"
-pytz = "*"
+tzdata = "*"
+
+[package.extras]
+test = ["coverage", "hypothesis", "pytest", "pytz"]
 
 [[package]]
 name = "iniconfig"
@@ -346,17 +349,6 @@ files = [
 six = ">=1.5"
 
 [[package]]
-name = "pytz"
-version = "2022.6"
-description = "World timezone definitions, modern and historical"
-optional = false
-python-versions = "*"
-files = [
-    {file = "pytz-2022.6-py2.py3-none-any.whl", hash = "sha256:222439474e9c98fced559f1709d89e6c9cbf8d79c794ff3eb9f8800064291427"},
-    {file = "pytz-2022.6.tar.gz", hash = "sha256:e89512406b793ca39f5971bc999cc538ce125c0e51c27941bef4568b460095e2"},
-]
-
-[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -379,6 +371,17 @@ files = [
 ]
 
 [[package]]
+name = "tzdata"
+version = "2024.2"
+description = "Provider of IANA time zone data"
+optional = false
+python-versions = ">=2"
+files = [
+    {file = "tzdata-2024.2-py2.py3-none-any.whl", hash = "sha256:a48093786cdcde33cad18c2555e8532f34422074448fbc874186f0abd79565cd"},
+    {file = "tzdata-2024.2.tar.gz", hash = "sha256:7d85cc416e9382e69095b7bdf4afd9e3880418a2413feec7069d533d6b4e31cc"},
+]
+
+[[package]]
 name = "win32-setctime"
 version = "1.1.0"
 description = "A small Python utility to set file creation time on Windows"
@@ -395,4 +398,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "8efa4f1b1817b935fef73d5b736781d248d1920a9212610c0c1917891419be9e"
+content-hash = "5a9a8514a85f9abc06546e48666ccd3b0335ad1c18c35cf95f6695d40b7ca784"
