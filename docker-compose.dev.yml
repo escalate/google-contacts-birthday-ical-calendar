@@ -1,0 +1,12 @@
+services:
+  google_contacts_birthday_ical_calendar-dev:
+    container_name: google_contacts_birthday_ical_calendar-dev
+    build:
+      context: .
+      target: base
+    working_dir: /app
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    volumes:
+      - type: bind
+        source: ./
+        target: /app

@@ -1,0 +1,43 @@
+{
+	"name": "Existing Docker Compose (Extend)",
+	"dockerComposeFile": "../docker-compose.dev.yml",
+	"service": "google_contacts_birthday_ical_calendar-dev",
+	"workspaceFolder": "/app",
+	"postCreateCommand": "make lint-pyproject install-python-dependencies install-python-dev-dependencies",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"terminal.integrated.profiles.linux": {
+					"Bash": {
+						"path": "/bin/bash"
+					}
+				},
+				"testing.automaticallyOpenPeekView": "never",
+				"python.testing.pytestEnabled": true,
+				"python.testing.pytestArgs": [
+					"tests"
+				],
+				"python.testing.unittestEnabled": false,
+				"[python]": {
+					"editor.defaultFormatter": "ms-python.black-formatter",
+					"editor.formatOnSave": true,
+					"editor.codeActionsOnSave": {
+						"source.organizeImports": "always"
+					}
+				}
+			},
+			"extensions": [
+				"EditorConfig.EditorConfig",
+				"GitHub.copilot",
+				"ms-azuretools.vscode-docker",
+				"ms-python.python",
+				"ms-python.black-formatter",
+				"ms-python.flake8",
+				"ms-python.isort",
+				"SonarSource.sonarlint-vscode"
+			]
+		}
+	},
+	"remoteUser": "appuser"
+}
