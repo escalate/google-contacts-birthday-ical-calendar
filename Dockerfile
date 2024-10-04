@@ -4,7 +4,7 @@ FROM python:3.12-slim AS python
 #### base
 FROM python AS base
 
-ARG POETRY_VERSION="1.2.2"
+ARG POETRY_VERSION="1.8.3"
 ENV POETRY_VIRTUALENVS_PATH=".venv" \
     POETRY_VIRTUALENVS_IN_PROJECT="true"
 
