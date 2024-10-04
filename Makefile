@@ -21,8 +21,12 @@ lock-python-dependencies:
 	poetry lock
 
 .PHONY: clean-python-venv
-clean-python:
+clean-python-venv:
 	rm --recursive --force .venv/
+
+.PHONY: clean-python-cache
+clean-python-cache:
+	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 
 ## Linting
 
@@ -40,18 +44,18 @@ lint-python:
 test-python:
 	poetry run pytest --cov=$(PROJECT)/
 
-## Docker Build
+## Build
 
 .PHONY: build-docker-image
-build-docker-image:
-	docker-compose --file docker-compose.yml build
+build-docker-image: clean-python-venv clean-python-cache
+	docker compose --file docker-compose.yml build
 
 ## Test & Execution
 
 .PHONY: test-docker-image
-test-docker-image: clean-python-venv
-	docker-compose -f docker-compose.test.yml build $(PROJECT)
+test-docker-image: clean-python-venv clean-python-cache
+	docker compose --file docker-compose.test.yml build $(PROJECT)
 
 .PHONY: run-docker-image
-run-docker-image: clean-python-venv
-	docker-compose -f docker-compose.yml run $(PROJECT) --help
+run-docker-image: clean-python-venv clean-python-cache
+	docker compose --file docker-compose.yml run --rm $(PROJECT) --help
