@@ -6,3 +6,4 @@ __pycache__/
 .coverage
 *.csv
 *.ics
+tests/fixtures/example.ical
