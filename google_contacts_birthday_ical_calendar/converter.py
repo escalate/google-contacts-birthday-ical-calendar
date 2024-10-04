@@ -19,23 +19,23 @@ def convert_csv_to_ical(csv_file):
 
     for row in csv_dict:
         if len(row["Birthday"]) > 0:
-            summary = "{0} hat Geburtstag".format(row["Name"])
+            name = "{0} {1}".format(row["First Name"], row["Last Name"]).strip()
+            summary = "{0} hat Geburtstag".format(name)
 
             try:
-                birthday = datetime.strptime(
-                    row["Birthday"], "%Y-%m-%d")
+                birthday = datetime.strptime(row["Birthday"], "%Y-%m-%d")
             except ValueError:
                 pass
 
             try:
-                birthday = datetime.strptime(
-                    row["Birthday"], " --%m-%d")
+                birthday = datetime.strptime(row["Birthday"], " --%m-%d")
             except ValueError:
                 pass
 
             logger.debug(
                 "Name: {n} - Date: {b}",
-                n=row["Name"], b=birthday.date()
+                n=name,
+                b=birthday.date(),
             )
 
             day_after_birthday = birthday
@@ -55,15 +55,9 @@ def convert_csv_to_ical(csv_file):
 
 
 @click.command()
-@click.argument("csvfile",
-                type=click.File("r"))
-@click.argument("icalfile",
-                type=click.File("wb"))
-@click.option(
-    "--verbose",
-    is_flag=True,
-    help="Enable verbose logging output."
-)
+@click.argument("csvfile", type=click.File("r"))
+@click.argument("icalfile", type=click.File("wb"))
+@click.option("--verbose", is_flag=True, help="Enable verbose logging output.")
 def cli(csvfile, icalfile, verbose):
     """Commandline interface for Google Contacts birthday
     to iCal calendar converter
