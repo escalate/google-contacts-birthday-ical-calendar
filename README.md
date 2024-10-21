@@ -6,36 +6,7 @@ This commandline tool converts birthday events of an CSV export of [Google Conta
 
 The iCal calendar file can then be imported into [Google Calendar](https://calendar.google.com/) to create notifications for birthdays of your contacts.
 
-## Install dependencies
-
-Install needed dependencies via [Poetry](https://python-poetry.org/)
-
-```
-$ make install-dependencies
-```
-
 ## Usage
-
-Run tool from commandline
-```
-$ cd google_contacts_birthday_ical_calendar/
-$ poetry shell
-$ ./converter.py --help
-
-Usage: converter.py [OPTIONS] CSVFILE ICALFILE
-
-    Commandline interface for Google Contacts birthday to iCal calendar
-    converter
-
-    CSVFILE is the input .csv filepath.
-    ICALFILE is the output .ics filepath.
-
-Options:
-    --verbose  Enable verbose logging output.
-    --help     Show this message and exit.
-```
-
-## Docker
 
 Build Docker image
 ```
@@ -44,18 +15,37 @@ $ make build-docker-image
 
 Run Docker container from built image to print help
 ```
-$ docker run google_contacts_birthday_ical_calendar:latest
+$ make run-docker-image
+
+Usage: converter.py [OPTIONS] CSVFILE ICALFILE
+
+  Commandline interface for Google Contacts birthday to iCal calendar
+  converter
+
+  CSVFILE is the input .csv filepath.
+  ICALFILE is the output .ics filepath.
+
+Options:
+  --verbose  Enable verbose logging output.
+  --help     Show this message and exit.
 ```
 
-Run Docker container from built image with additional arguments
+Run Docker container from built image with custom arguments
 ```
-$ docker run \
+$ docker compose \
+    --file docker-compose.yml \
+    run \
+    --rm \
     --volume=$(pwd):/data:rw \
-    google_contacts_birthday_ical_calendar:latest \
+    google_contacts_birthday_ical_calendar \
     example.csv \
     example.ics \
     --verbose
 ```
+
+## Development
+
+Build and launch the [DevContainer](https://code.visualstudio.com/docs/devcontainers/containers) in [VSCode](https://code.visualstudio.com/).
 
 ## Other projects
 
