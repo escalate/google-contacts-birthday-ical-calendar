@@ -12,7 +12,7 @@ click = "^8.1.8"
 loguru = "^0.7.2"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.3.3"
+pytest = "^8.3.4"
 pytest-cov = "^6.0.0"
 pytest-loguru = "^0.4.0"
 
