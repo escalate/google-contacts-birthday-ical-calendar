@@ -111,13 +111,13 @@ toml = ["tomli"]
 
 [[package]]
 name = "icalendar"
-version = "6.1.0"
+version = "6.1.1"
 description = "iCalendar parser/generator"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "icalendar-6.1.0-py3-none-any.whl", hash = "sha256:46c09b774a6e6948495dafcb166dc15135c8259d0ae25491f154cbc822714b69"},
-    {file = "icalendar-6.1.0.tar.gz", hash = "sha256:43c2db8632959d634f4e48f6e6131e706bf2cdddad488cf0b72fda079b796bad"},
+    {file = "icalendar-6.1.1-py3-none-any.whl", hash = "sha256:accf3a4be9a1f89bad00e0bf14103b02cd9b02dcb9b4258eb717f39d24cf58e9"},
+    {file = "icalendar-6.1.1.tar.gz", hash = "sha256:2c44355a8f006de5ae73fa3f022a1cbe2a0de6b1607ce8879739eb887c4f3471"},
 ]
 
 [package.dependencies]
@@ -290,4 +290,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "c1eec2eee9187aa28556cf606d6a7c20bdad31b2ffe9ceffd85f3ab2b16aa332"
+content-hash = "996eaed1a82e9f83fec3bb80b2b589ea2ce8a7915c0f86e50320644853a4252c"
