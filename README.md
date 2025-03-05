@@ -9,11 +9,13 @@ The iCal calendar file can then be imported into [Google Calendar](https://calen
 ## Usage
 
 Build Docker image
+
 ```
 $ make build-docker-image
 ```
 
 Run Docker container from built image to print help
+
 ```
 $ make run-docker-image
 
@@ -31,6 +33,7 @@ Options:
 ```
 
 Run Docker container from built image with custom arguments
+
 ```
 $ docker compose \
     --file docker-compose.yml \
@@ -49,7 +52,7 @@ Build and launch the [DevContainer](https://code.visualstudio.com/docs/devcontai
 
 ## Other projects
 
-* Google Apps Script which sends emails for birthdays of Google contacts [GoogleContactsEventsNotifier](https://github.com/GioBonvi/GoogleContactsEventsNotifier)
+- Google Apps Script which sends emails for birthdays of Google contacts [GoogleContactsEventsNotifier](https://github.com/GioBonvi/GoogleContactsEventsNotifier)
 
 ## Contribute
 
