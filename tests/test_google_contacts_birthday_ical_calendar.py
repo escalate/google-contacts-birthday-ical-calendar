@@ -68,7 +68,7 @@ def test_cli_help(cli_runner):
 
 def test_cli_mandatory_parameter(cli_runner):
     actual = cli_runner.invoke(
-        converter.cli, ["tests/fixtures/example.csv",
-                        "tests/fixtures/example.ical"])
+        converter.cli, ["tests/fixtures/example.csv", "tests/fixtures/example.ical"]
+    )
     assert actual.exit_code == 0
     assert "" in actual.output

@@ -15,9 +15,7 @@
         },
         "testing.automaticallyOpenPeekView": "never",
         "python.testing.pytestEnabled": true,
-        "python.testing.pytestArgs": [
-          "tests"
-        ],
+        "python.testing.pytestArgs": ["tests"],
         "python.testing.unittestEnabled": false,
         "[python]": {
           "editor.defaultFormatter": "ms-python.black-formatter",
