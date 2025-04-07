@@ -13,7 +13,7 @@ loguru = "^0.7.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
-pytest-cov = "^6.0.0"
+pytest-cov = "^6.1.1"
 pytest-loguru = "^0.4.0"
 
 [build-system]
