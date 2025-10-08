@@ -1,5 +1,5 @@
 #### python
-FROM python:3.13-slim AS python
+FROM python:3.14-slim AS python
 
 #### base
 FROM python AS base
