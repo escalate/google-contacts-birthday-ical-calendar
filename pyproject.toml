@@ -6,7 +6,7 @@ authors = ["Felix Boerner <ich@felix-boerner.de>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.13"
+python = "^3.14"
 icalendar = "^6.3.0"
 click = "^8.2.0"
 loguru = "^0.7.3"
