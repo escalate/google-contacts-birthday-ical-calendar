@@ -31,7 +31,7 @@ Options:
   --help     Show this message and exit.
 ```
 
-Run Docker container from built image with custom arguments
+3. Run Docker container from built image with custom arguments.
 
 ```
 $ docker compose \
