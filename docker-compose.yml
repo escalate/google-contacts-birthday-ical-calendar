@@ -1,6 +1,6 @@
 services:
-  google_contacts_birthday_ical_calendar:
-    image: google_contacts_birthday_ical_calendar:latest
+  google-contacts-birthday-ical-calendar:
+    container_name: google-contacts-birthday-ical-calendar
+    image: google-contacts-birthday-ical-calendar:${DOCKER_IMAGE_TAG:-latest}
     build:
       context: .
-      target: release

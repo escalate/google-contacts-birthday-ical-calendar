@@ -1,6 +1,6 @@
 services:
-  google_contacts_birthday_ical_calendar-dev:
-    container_name: google_contacts_birthday_ical_calendar-dev
+  google-contacts-birthday-ical-calendar-dev:
+    container_name: google-contacts-birthday-ical-calendar-dev
     build:
       context: .
       target: base

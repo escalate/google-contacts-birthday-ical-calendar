@@ -1,30 +1,43 @@
-[tool.poetry]
-name = "google_contacts_birthday_ical_calendar"
+[project]
+name = "google-contacts-birthday-ical-calendar"
 version = "0.0.0"
 description = "Google Contacts birthday to iCal calendar converter"
-authors = ["Felix Boerner <ich@felix-boerner.de>"]
-license = "MIT"
+authors = [
+    { name = "Felix Börner" }
+]
+license-files = [
+    "LICENSE"
+]
+readme = "README.md"
+requires-python = ">=3.14, <4.0"
+dynamic = ["dependencies"]
+
+[project.scripts]
+google-contacts-birthday-ical-calendar = "google_contacts_birthday_ical_calendar.cli:cli"
 
 [tool.poetry.dependencies]
-python = "^3.14"
-icalendar = "^6.3.0"
 click = "^8.2.0"
 loguru = "^0.7.3"
+icalendar = "^6.3.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
 pytest-cov = "^7.0.0"
 pytest-loguru = "^0.4.0"
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.pytest.ini_options]
-pythonpath = "."
-
 [tool.black]
 preview = true
 
 [tool.isort]
 profile = "black"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+addopts = [
+    "--cov=src/",
+    "--import-mode=importlib",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,6 +1,6 @@
 services:
-  google_contacts_birthday_ical_calendar:
-    container_name: google_contacts_birthday_ical_calendar-test
+  google-contacts-birthday-ical-calendar:
+    container_name: google-contacts-birthday-ical-calendar-test
     build:
       context: .
       target: test
