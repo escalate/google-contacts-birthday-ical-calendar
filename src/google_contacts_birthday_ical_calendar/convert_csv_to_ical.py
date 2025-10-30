@@ -1,8 +1,6 @@
-#!/usr/bin/env python
 import csv
 from datetime import date, datetime, timedelta
 
-import click
 from icalendar import Calendar, Event
 from loguru import logger
 
@@ -28,7 +26,9 @@ def convert_csv_to_ical(csv_file):
                 pass
 
             try:
-                birthday = datetime.strptime(row["Birthday"], " --%m-%d")
+                birthday = datetime.strptime(
+                    "{0};{1}".format(row["Birthday"], "1900"), " --%m-%d;%Y"
+                )
             except ValueError:
                 pass
 
@@ -52,34 +52,3 @@ def convert_csv_to_ical(csv_file):
             cal.add_component(event)
 
     return cal.to_ical()
-
-
-@click.command()
-@click.argument("csvfile", type=click.File("r"))
-@click.argument("icalfile", type=click.File("wb"))
-@click.option("--verbose", is_flag=True, help="Enable verbose logging output.")
-def cli(csvfile, icalfile, verbose):
-    """Commandline interface for Google Contacts birthday
-    to iCal calendar converter
-
-    \b
-    CSVFILE is the input .csv filepath.
-    ICALFILE is the output .ics filepath.
-    """
-
-    logger.disable(__name__)
-
-    if verbose:
-        logger.enable(__name__)
-
-    logger.info("CSV file: {csvfile}", csvfile=csvfile.name)
-
-    cal = convert_csv_to_ical(csvfile)
-
-    icalfile.write(cal)
-
-    logger.info("iCal file: {icalfile}", icalfile=icalfile.name)
-
-
-if __name__ == "__main__":
-    cli()

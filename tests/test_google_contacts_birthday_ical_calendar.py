@@ -3,7 +3,10 @@ from datetime import date
 import pytest
 from click.testing import CliRunner
 
-from google_contacts_birthday_ical_calendar import converter
+from cli import cli
+from google_contacts_birthday_ical_calendar.convert_csv_to_ical import (
+    convert_csv_to_ical,
+)
 
 
 @pytest.fixture
@@ -47,28 +50,30 @@ def cli_runner():
 
 
 def test_convert_csv_to_ical(example_csv_file, example_ical_file):
-    actual_ical_calendar = converter.convert_csv_to_ical(example_csv_file)
+    actual_ical_calendar = convert_csv_to_ical(example_csv_file)
     print(actual_ical_calendar)
 
     assert actual_ical_calendar.decode("utf-8") == example_ical_file
 
 
 def test_cli_no_parameter(cli_runner):
-    actual = cli_runner.invoke(converter.cli, [])
+    actual = cli_runner.invoke(cli, [])
     assert actual.exit_code == 2
     assert "Usage: cli [OPTIONS] CSVFILE ICALFILE" in actual.output
     assert "Error: Missing argument 'CSVFILE'" in actual.output
 
 
 def test_cli_help(cli_runner):
-    actual = cli_runner.invoke(converter.cli, ["--help"])
+    actual = cli_runner.invoke(cli, ["--help"])
     assert actual.exit_code == 0
     assert "Usage: cli [OPTIONS] CSVFILE ICALFILE" in actual.output
 
 
 def test_cli_mandatory_parameter(cli_runner):
     actual = cli_runner.invoke(
-        converter.cli, ["tests/fixtures/example.csv", "tests/fixtures/example.ical"]
+        cli, ["tests/fixtures/example.csv", "tests/fixtures/example.ical"]
     )
+    assert actual.exit_code == 0
+    assert "" in actual.output
     assert actual.exit_code == 0
     assert "" in actual.output

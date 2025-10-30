@@ -1,24 +1,40 @@
 SHELL = /bin/bash
 .SHELLFLAGS = -e -o pipefail -c
-PROJECT = google_contacts_birthday_ical_calendar
 
-## Project Maintenance
+## Dependencies
 
-.PHONY: install-python-dependencies
-install-python-dependencies:
+.PHONY: install-project-dependencies
+install-project-dependencies:
 	poetry install --no-interaction --no-root --without dev
 
-.PHONY: install-python-dev-dependencies
-install-python-dev-dependencies:
+.PHONY: install-project-dev-dependencies
+install-project-dev-dependencies:
 	poetry install --no-interaction --no-root --only dev
 
-.PHONY: update-python-dependencies
-update-python-dependencies:
+.PHONY: update-project-dependencies
+update-project-dependencies:
 	poetry update
 
-.PHONY: lock-python-dependencies
-lock-python-dependencies:
+.PHONY: lock-project-dependencies
+lock-project-dependencies:
 	poetry lock
+
+## Lint
+
+.PHONY: lint-project-config
+lint-project-config:
+	poetry check
+
+## Build
+
+.PHONY: build-docker-image
+build-docker-image: clean-python-venv clean-python-cache
+	docker compose --file docker-compose.yml build
+
+## Clean
+
+.PHONY: clean
+clean: clean-python-venv clean-python-cache
 
 .PHONY: clean-python-venv
 clean-python-venv:
@@ -28,34 +44,16 @@ clean-python-venv:
 clean-python-cache:
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 
-## Linting
+## Test
 
-.PHONY: lint-pyproject
-lint-pyproject:
-	poetry check
-
-.PHONY: lint-python
-lint-python:
-	poetry run flake8 -v $(PROJECT)/ tests/
-
-## Testing
-
-.PHONY: test-python
-test-python:
-	poetry run pytest --cov=$(PROJECT)/
-
-## Build
-
-.PHONY: build-docker-image
-build-docker-image: clean-python-venv clean-python-cache
-	docker compose --file docker-compose.yml build
-
-## Test & Execution
+.PHONY: test-project
+test-project:
+	poetry run pytest
 
 .PHONY: test-docker-image
 test-docker-image: clean-python-venv clean-python-cache
-	docker compose --file docker-compose.test.yml build $(PROJECT)
+	docker compose --file docker-compose.test.yml build google-contacts-birthday-ical-calendar-test
 
 .PHONY: run-docker-image
 run-docker-image: clean-python-venv clean-python-cache
-	docker compose --file docker-compose.yml run --rm $(PROJECT) --help
+	docker compose --file docker-compose.yml run --rm google-contacts-birthday-ical-calendar --help

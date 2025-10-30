@@ -1,20 +1,20 @@
 #### python
 FROM python:3.14-slim AS python
 
+RUN useradd --create-home python-user
+
 #### base
 FROM python AS base
 
-ARG POETRY_VERSION="1.8.3"
+ARG POETRY_VERSION="2.2.1"
 ENV POETRY_VIRTUALENVS_PATH=".venv" \
     POETRY_VIRTUALENVS_IN_PROJECT="true"
 
-RUN pip install --no-cache-dir --disable-pip-version-check "poetry==${POETRY_VERSION}" \
+RUN pip install --no-cache-dir --disable-pip-version-check poetry==${POETRY_VERSION} \
     && apt-get update \
     && apt-get install --no-install-recommends --yes make=* \
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/*
-
-RUN useradd --create-home appuser
 
 #### build
 FROM base AS build
@@ -23,30 +23,26 @@ WORKDIR /build
 
 COPY . ./
 
-RUN make lint-pyproject \
-    && make install-python-dependencies
+RUN make lint-project-config \
+    && make install-project-dependencies
 
 #### test
 FROM build AS test
 
-RUN make install-python-dev-dependencies \
-    && make test-python
+RUN make install-project-dev-dependencies \
+    && make test-project
 
 #### release
 FROM python AS release
 
-LABEL maintainer="Felix Boerner <ich@felix-boerner.de>"
-
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1
 
-RUN useradd appuser
+COPY --from=build --chown=python-user:python-user /build/src/ /app/
+COPY --from=build --chown=python-user:python-user /build/.venv/ /app/.venv/
 
-COPY --from=build --chown=appuser:appuser /build/google_contacts_birthday_ical_calendar/ /app/
-COPY --from=build --chown=appuser:appuser /build/.venv/ /app/.venv/
-
-WORKDIR /data
-USER appuser
+WORKDIR /app
+USER python-user
 ENV PATH="/app/.venv/bin:${PATH}"
-ENTRYPOINT ["/app/converter.py"]
+ENTRYPOINT ["/app/cli.py"]
 CMD ["--help"]

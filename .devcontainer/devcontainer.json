@@ -1,9 +1,9 @@
 {
   "name": "Existing Docker Compose (Extend)",
   "dockerComposeFile": "../docker-compose.dev.yml",
-  "service": "google_contacts_birthday_ical_calendar-dev",
+  "service": "google-contacts-birthday-ical-calendar-dev",
   "workspaceFolder": "/app",
-  "postCreateCommand": "make lint-pyproject install-python-dependencies install-python-dev-dependencies",
+  "postCreateCommand": "make lint-project-config install-project-dependencies install-project-dev-dependencies",
   "customizations": {
     "vscode": {
       "settings": {
@@ -14,6 +14,9 @@
           }
         },
         "testing.automaticallyOpenPeekView": "never",
+        "python-envs.defaultEnvManager": "ms-python.python:poetry",
+        "python-envs.defaultPackageManager": "ms-python.python:poetry",
+        "python-envs.pythonProjects": [],
         "python.testing.pytestEnabled": true,
         "python.testing.pytestArgs": ["tests"],
         "python.testing.unittestEnabled": false,
@@ -21,21 +24,23 @@
           "editor.defaultFormatter": "ms-python.black-formatter",
           "editor.formatOnSave": true,
           "editor.codeActionsOnSave": {
-            "source.organizeImports": "always"
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
           }
         }
       },
       "extensions": [
+        "charliermarsh.ruff",
         "EditorConfig.EditorConfig",
         "GitHub.copilot",
         "ms-azuretools.vscode-docker",
-        "ms-python.python",
         "ms-python.black-formatter",
         "ms-python.flake8",
         "ms-python.isort",
+        "ms-python.python",
         "SonarSource.sonarlint-vscode"
       ]
     }
   },
-  "remoteUser": "appuser"
+  "remoteUser": "python-user"
 }
