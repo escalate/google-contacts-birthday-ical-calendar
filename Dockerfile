@@ -41,7 +41,7 @@ ENV PYTHONFAULTHANDLER=1 \
 COPY --from=build --chown=python-user:python-user /build/src/ /app/
 COPY --from=build --chown=python-user:python-user /build/.venv/ /app/.venv/
 
-WORKDIR /app
+WORKDIR /data
 USER python-user
 ENV PATH="/app/.venv/bin:${PATH}"
 ENTRYPOINT ["/app/cli.py"]
