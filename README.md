@@ -55,7 +55,7 @@ If you’re interested in similar or related projects, check out:
 
 We welcome contributions of all kinds 🎉.
 
-Please read our [CONTRIBUTING.md](https://github.com/escalate/google-contacts-birthday-ical-calendar/blob/master/CONTRIBUTING.md) guide to learn how to get started, submit changes, and follow our contribution standards.
+Please read our [Contributing](https://github.com/escalate/google-contacts-birthday-ical-calendar/blob/master/CONTRIBUTING.md) guide to learn how to get started, submit changes, and follow our contribution standards.
 
 ## 🌐 Code of Conduct
 
