@@ -45,7 +45,9 @@ $ docker compose \
     --verbose
 ```
 
-## Other projects
+## 🧩 Similar Projects
+
+If you’re interested in similar or related projects, check out:
 
 - Google Apps Script which sends emails for birthdays of Google contacts [GoogleContactsEventsNotifier](https://github.com/GioBonvi/GoogleContactsEventsNotifier)
 
