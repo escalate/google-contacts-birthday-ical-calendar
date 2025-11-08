@@ -21,7 +21,7 @@ loguru = "^0.7.3"
 icalendar = "^6.3.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.3.5"
+pytest = "^9.0.0"
 pytest-cov = "^7.0.0"
 pytest-loguru = "^0.4.0"
 
