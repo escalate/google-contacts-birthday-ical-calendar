@@ -131,22 +131,19 @@ toml = ["tomli ; python_full_version <= \"3.11.0a6\""]
 
 [[package]]
 name = "icalendar"
-version = "6.3.2"
-description = "iCalendar parser/generator"
+version = "7.0.0"
+description = "RFC 5545 compatible parser and generator of iCalendar files"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "icalendar-6.3.2-py3-none-any.whl", hash = "sha256:d400e9c9bb8c025e5a3c77c236941bb690494be52528a0b43cc7e8b7c9505064"},
-    {file = "icalendar-6.3.2.tar.gz", hash = "sha256:e0c10ecbfcebe958d33af7d491f6e6b7580d11d475f2eeb29532d0424f9110a1"},
+    {file = "icalendar-7.0.0-py3-none-any.whl", hash = "sha256:ed874334e620a73b2cbf408706574f3e83210ae79f3960678c453131e465c1c7"},
+    {file = "icalendar-7.0.0.tar.gz", hash = "sha256:5c69cf317177668748793bdecbe93d0850ceca8d450bbf27c8fa1a14e2e71223"},
 ]
 
 [package.dependencies]
 python-dateutil = "*"
-tzdata = "*"
-
-[package.extras]
-test = ["coverage", "hypothesis", "pytest", "pytz"]
+tzdata = ">=2025.3"
 
 [[package]]
 name = "iniconfig"
@@ -311,14 +308,14 @@ files = [
 
 [[package]]
 name = "tzdata"
-version = "2025.1"
+version = "2025.3"
 description = "Provider of IANA time zone data"
 optional = false
 python-versions = ">=2"
 groups = ["main"]
 files = [
-    {file = "tzdata-2025.1-py2.py3-none-any.whl", hash = "sha256:7e127113816800496f027041c570f50bcd464a020098a3b6b199517772303639"},
-    {file = "tzdata-2025.1.tar.gz", hash = "sha256:24894909e88cdb28bd1636c6887801df64cb485bd593f2fd83ef29075a81d694"},
+    {file = "tzdata-2025.3-py2.py3-none-any.whl", hash = "sha256:06a47e5700f3081aab02b2e513160914ff0694bce9947d6b76ebd6bf57cfc5d1"},
+    {file = "tzdata-2025.3.tar.gz", hash = "sha256:de39c2ca5dc7b0344f2eba86f49d614019d29f060fc4ebc8a417896a620b56a7"},
 ]
 
 [[package]]
@@ -340,4 +337,4 @@ dev = ["black (>=19.3b0) ; python_version >= \"3.6\"", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.14, <4.0"
-content-hash = "6275732bd3e990e87ff773c8ff054048bb7e64fab82d666fdb7cb6a83fd0778e"
+content-hash = "eb1077a044218962e937398a13fc595065843b9e368b59a685c1c7466fb53350"
