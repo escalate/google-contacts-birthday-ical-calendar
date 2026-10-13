@@ -1,5 +1,5 @@
 #### python
-FROM python:3.14-slim AS python
+FROM python:3.15-slim AS python
 
 RUN useradd --create-home python-user
 
