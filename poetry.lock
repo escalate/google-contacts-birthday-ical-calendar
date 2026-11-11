@@ -263,18 +263,19 @@ testing = ["process-tests", "pytest-xdist", "virtualenv"]
 
 [[package]]
 name = "pytest-loguru"
-version = "0.4.1"
+version = "0.4.2"
 description = "Pytest Loguru"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "pytest_loguru-0.4.1-py3-none-any.whl", hash = "sha256:57e8f4bf3d090c17bb652843ddf9c295a18200f4e2a99f78a5c4c9b605347405"},
-    {file = "pytest_loguru-0.4.1.tar.gz", hash = "sha256:2248a2bdd4d3b396b06f5513c7208280b67d4dab27555aa65c310a82c2942dbe"},
+    {file = "pytest_loguru-0.4.2-py3-none-any.whl", hash = "sha256:282bba4c27c72e9cdea0680fb455642919649bf7f3a110723275cbfe3c40a44b"},
+    {file = "pytest_loguru-0.4.2.tar.gz", hash = "sha256:ad365b4149a99e6cc26cde01d225e776617bffbce3af3fc6d90fdb9fb34c9302"},
 ]
 
 [package.dependencies]
 loguru = "*"
+pytest = ">=6.2"
 
 [[package]]
 name = "python-dateutil"
