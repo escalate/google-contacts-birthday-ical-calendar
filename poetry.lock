@@ -131,14 +131,14 @@ toml = ["tomli ; python_full_version <= \"3.11.0a6\""]
 
 [[package]]
 name = "icalendar"
-version = "7.2.2"
+version = "7.3.2"
 description = "RFC 5545 compatible parser and generator of iCalendar files"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "icalendar-7.2.2-py3-none-any.whl", hash = "sha256:90dd280cb4f67d1ef07b5178c2c33db4fc0a05627e50a3758b6b2aa9b117bc07"},
-    {file = "icalendar-7.2.2.tar.gz", hash = "sha256:6cf904a928881e20c89b682e75bca2eb97e8c5ca629782ed44a519abf4cac1cc"},
+    {file = "icalendar-7.3.2-py3-none-any.whl", hash = "sha256:f95ce4ff8f41d8ad9ca253a676ef40c672abd3774458d197c215055a0d805cc4"},
+    {file = "icalendar-7.3.2.tar.gz", hash = "sha256:f15380927aed4318860e001c03b543c48578c73aec46e2d384c5d0802082b808"},
 ]
 
 [package.dependencies]
