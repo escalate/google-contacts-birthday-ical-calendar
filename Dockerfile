@@ -42,6 +42,7 @@ COPY --from=build --chown=python-user:python-user /build/src/ /app/
 COPY --from=build --chown=python-user:python-user /build/.venv/ /app/.venv/
 
 WORKDIR /data
+# hadolint ignore=DL3066
 USER python-user
 ENV PATH="/app/.venv/bin:${PATH}"
 ENTRYPOINT ["/app/cli.py"]
