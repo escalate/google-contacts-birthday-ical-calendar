@@ -17,7 +17,7 @@ google-contacts-birthday-ical-calendar = "google_contacts_birthday_ical_calendar
 
 [tool.poetry.dependencies]
 click = "^8.2.0"
-loguru = "^0.7.3"
+loguru = "^0.8.0"
 icalendar = "^7.0.0"
 
 [tool.poetry.group.dev.dependencies]
