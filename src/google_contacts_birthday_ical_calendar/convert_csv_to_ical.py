@@ -17,8 +17,8 @@ def convert_csv_to_ical(csv_file):
 
     for row in csv_dict:
         if len(row["Birthday"]) > 0:
-            name = "{0} {1}".format(row["First Name"], row["Last Name"]).strip()
-            summary = "{0} hat Geburtstag".format(name)
+            name = "{} {}".format(row["First Name"], row["Last Name"]).strip()
+            summary = f"{name} hat Geburtstag"
 
             try:
                 birthday = datetime.strptime(row["Birthday"], "%Y-%m-%d")
@@ -27,7 +27,7 @@ def convert_csv_to_ical(csv_file):
 
             try:
                 birthday = datetime.strptime(
-                    "{0};{1}".format(row["Birthday"], "1900"), " --%m-%d;%Y"
+                    "{};{}".format(row["Birthday"], "1900"), " --%m-%d;%Y"
                 )
             except ValueError:
                 pass
